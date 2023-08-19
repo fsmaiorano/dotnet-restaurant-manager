@@ -14,7 +14,7 @@ public class ProductMap : IEntityTypeConfiguration<ProductEntity>
 
         builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired();
         builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(100)").IsRequired();
-        builder.Property(p => p.Category).HasColumnName("category").HasColumnType("nvarchar(100)").IsRequired();
+        builder.Property(p => p.Restaurant).HasColumnName("Restaurant").HasColumnType("nvarchar(100)").IsRequired();
         builder.Property(p => p.Price).HasColumnName("price").HasColumnType("decimal(18,2)").IsRequired();
         builder.Property(p => p.ImageUrl).HasColumnName("image_url").HasColumnType("nvarchar(100)").IsRequired(false);
 

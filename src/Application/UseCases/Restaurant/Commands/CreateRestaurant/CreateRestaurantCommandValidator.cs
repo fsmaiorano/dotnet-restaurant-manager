@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Common.Interfaces;
+using FluentValidation;
 
 namespace Application.UseCases.Restaurant.Commands.CreateRestaurant;
 public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
@@ -12,6 +13,7 @@ public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaura
 
         RuleFor(x => x.Address)
             .NotEmpty()
-            .MaximumLength(250);
+            .MaximumLength(50);
+
     }
 }
