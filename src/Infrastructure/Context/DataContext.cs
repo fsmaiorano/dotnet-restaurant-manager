@@ -34,10 +34,10 @@ public class DataContext : DbContext, IDataContext
 
     // public DbSet<TagEntity> Tags => Set<TagEntity>();
     // public DbSet<RoleEntity> Roles => Set<RoleEntity>();
-    // public DbSet<UserEntity> Users => Set<UserEntity>();
     // public DbSet<PostEntity> Posts => Set<PostEntity>();
     // public DbSet<RestaurantEntity> Restaurants => Set<RestaurantEntity>();
 
+    public DbSet<UserEntity> Users => Set<UserEntity>();
     public DbSet<ProductEntity> Products => Set<ProductEntity>();
     public DbSet<PromotionEntity> Promotions => Set<PromotionEntity>();
     public DbSet<RestaurantEntity> Restaurants => Set<RestaurantEntity>();
@@ -57,7 +57,7 @@ public class DataContext : DbContext, IDataContext
 
         if (AppDomain.CurrentDomain.FriendlyName.Contains("testhost"))
         {
-            optionsBuilder.UseInMemoryDatabase("BlogDb");
+            optionsBuilder.UseInMemoryDatabase("ApplicationDb");
         }
         else
         {

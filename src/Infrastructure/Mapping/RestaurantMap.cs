@@ -13,9 +13,9 @@ public class RestaurantMap : IEntityTypeConfiguration<RestaurantEntity>
         builder.HasIndex(p => p.Id);
 
         builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired();
-        builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(100)").IsRequired();
-        builder.Property(p => p.Address).HasColumnName("address").HasColumnType("nvarchar(100)").IsRequired();
-        builder.Property(p => p.ImageUrl).HasColumnName("image_url").HasColumnType("nvarchar(100)").IsRequired(false);
+        builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(250)").IsRequired();
+        builder.Property(p => p.Address).HasColumnName("address").HasColumnType("nvarchar(250)").IsRequired();
+        builder.Property(p => p.ImageUrl).HasColumnName("image_url").HasColumnType("nvarchar(250)").IsRequired(false);
 
         builder.Property(p => p.Created).HasColumnName("created").HasColumnType("datetime").IsRequired();
         builder.Property(p => p.CreatedBy).HasColumnName("created_by").HasColumnType("nvarchar(100)").IsRequired();

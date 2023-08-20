@@ -15,8 +15,8 @@ public class RestaurantCreatedEventHandler : INotificationHandler<RestaurantCrea
 
     public Task Handle(RestaurantCreatedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Blog: {DomainEvent}", notification.GetType().Name);
-        _logger.LogDebug("Blog: {@DomainEvent}", notification);
+        _logger.LogInformation("Application: {DomainEvent}", notification.GetType().Name);
+        _logger.LogDebug("Application: {@DomainEvent}", notification);
 
         return Task.CompletedTask;
     }

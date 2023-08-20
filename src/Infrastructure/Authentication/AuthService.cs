@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.UseCases.User.Queries.GetUser;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,47 +17,47 @@ namespace Infrastructure.Authentication
             _config = config;
         }
 
-        // public async Task<string?> GenerateToken(UserAuthenticationDto user)
-        // {
-        //     try
-        //     {
-        //         if (user.Id == 0 || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Email))
-        //             return null;
+        public async Task<string?> GenerateToken(UserAuthenticationDto user)
+        {
+            try
+            {
+                if (user.Id == 0 || string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Email))
+                    return null;
 
-        //         var issuer = _config["Jwt:Issuer"];
-        //         var audience = _config["Jwt:Audience"];
-        //         var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
+                var issuer = _config["Jwt:Issuer"];
+                var audience = _config["Jwt:Audience"];
+                var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
 
-        //         var tokenDescriptor = new SecurityTokenDescriptor
-        //         {
-        //             Subject = new ClaimsIdentity(new[]
-        //             {
-        //                 new Claim("Id", Guid.NewGuid().ToString()),
-        //                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()!),
-        //                 new Claim(JwtRegisteredClaimNames.Sub, user.Name!),
-        //                 new Claim(JwtRegisteredClaimNames.Email, user.Email!),
-        //                 new Claim(JwtRegisteredClaimNames.Jti,
-        //                 Guid.NewGuid().ToString())
-        //              }),
-        //             Expires = DateTime.UtcNow.AddMinutes(50),
-        //             Issuer = issuer,
-        //             Audience = audience,
-        //             SigningCredentials = new SigningCredentials
-        //                                     (new SymmetricSecurityKey(key),
-        //                                      SecurityAlgorithms.HmacSha512Signature)
-        //         };
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim("Id", Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()!),
+                        new Claim(JwtRegisteredClaimNames.Sub, user.Name!),
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email!),
+                        new Claim(JwtRegisteredClaimNames.Jti,
+                        Guid.NewGuid().ToString())
+                     }),
+                    Expires = DateTime.UtcNow.AddMinutes(50),
+                    Issuer = issuer,
+                    Audience = audience,
+                    SigningCredentials = new SigningCredentials
+                                            (new SymmetricSecurityKey(key),
+                                             SecurityAlgorithms.HmacSha512Signature)
+                };
 
-        //         var tokenHandler = new JwtSecurityTokenHandler();
-        //         var token = tokenHandler.CreateToken(tokenDescriptor);
-        //         var stringToken = tokenHandler.WriteToken(token);
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var stringToken = tokenHandler.WriteToken(token);
 
-        //         return stringToken;
-        //     }
-        //     catch (Exception)
-        //     {
-        //         throw;
-        //     }
-        // }
+                return stringToken;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public async Task<bool> ValidateToken(string token)
         {
