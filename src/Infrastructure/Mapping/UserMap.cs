@@ -12,13 +12,12 @@ public class UserMap : IEntityTypeConfiguration<UserEntity>
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Id);
 
-        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn(); ;
+        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("Sqlite:Autoincrement", true);
         builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(100)").IsRequired();
-        builder.Property(p => p.Slug).HasColumnName("slug").HasColumnType("nvarchar(200)").IsRequired();
         builder.Property(p => p.Email).HasColumnName("email").HasColumnType("nvarchar(200)").IsRequired();
         builder.Property(p => p.PasswordHash).HasColumnName("password_hash").HasColumnType("nvarchar(200)").IsRequired();
-        builder.Property(p => p.Bio).HasColumnName("bio").HasColumnType("nvarchar(250)").IsRequired();
-        builder.Property(p => p.Image).HasColumnName("image").HasColumnType("nvarchar(250)").IsRequired();
+        builder.Property(p => p.Bio).HasColumnName("bio").HasColumnType("nvarchar(250)");
+        builder.Property(p => p.Image).HasColumnName("image").HasColumnType("nvarchar(250)");
 
 
         // builder.HasMany(p => p.Roles).WithMany(p => p.Users).UsingEntity<Dictionary<string, object>>("UserRole",

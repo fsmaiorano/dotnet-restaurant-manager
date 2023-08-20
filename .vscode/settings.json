@@ -1,3 +1,12 @@
 {
-    "dotnet.defaultSolution": "dotnet-restaurant-manager.sln"
+    "dotnet.defaultSolution": "dotnet-restaurant-manager.sln",
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "sqlite",
+            "database": "${workspaceFolder:dotnet-restaurant-manager}/src/WebApi/app.db"
+        }
+    ]
 }

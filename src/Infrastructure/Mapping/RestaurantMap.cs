@@ -12,7 +12,7 @@ public class RestaurantMap : IEntityTypeConfiguration<RestaurantEntity>
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Id);
 
-        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired();
+        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("Sqlite:Autoincrement", true);
         builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(250)").IsRequired();
         builder.Property(p => p.Address).HasColumnName("address").HasColumnType("nvarchar(250)").IsRequired();
         builder.Property(p => p.ImageUrl).HasColumnName("image_url").HasColumnType("nvarchar(250)").IsRequired(false);

@@ -8,11 +8,11 @@ public class PromotiontMap : IEntityTypeConfiguration<PromotionEntity>
 {
     public void Configure(EntityTypeBuilder<PromotionEntity> builder)
     {
-        builder.ToTable("Promotiont");
+        builder.ToTable("Promotion");
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Id);
 
-        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired();
+        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("Sqlite:Autoincrement", true);
         builder.Property(p => p.Description).HasColumnName("description").HasColumnType("nvarchar(100)").IsRequired();
         builder.Property(p => p.PromotionalPrice).HasColumnName("promotional_price").HasColumnType("decimal(18,2)").IsRequired();
         // builder.Property(p => p.DaysAndTimes).HasColumnName("days_and_times").HasColumnType("nvarchar(100)").IsRequired();

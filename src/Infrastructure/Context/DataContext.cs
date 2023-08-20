@@ -16,7 +16,7 @@ public class DataContext : DbContext, IDataContext
     private readonly IMediator _mediator;
     private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
 
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    public DataContext() : base()
     {
 
     }
@@ -64,7 +64,7 @@ public class DataContext : DbContext, IDataContext
             if (!string.IsNullOrEmpty(_configuration.GetConnectionString("DefaultConnection")))
             {
                 Console.WriteLine($"Using SQL Server - ConnectionString: {_configuration.GetConnectionString("DefaultConnection")}");
-                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(DataContext).Assembly.FullName));
             }
             else
@@ -84,7 +84,7 @@ public class DataContext : DbContext, IDataContext
                 Console.WriteLine($"Using SQL Server TestDb - ConnectionString: {connectionString}");
 
                 optionsBuilder
-                    .UseSqlServer(connectionString, builder => builder.MigrationsAssembly(typeof(DataContext).Assembly.FullName));
+                    .UseSqlite(connectionString, builder => builder.MigrationsAssembly(typeof(DataContext).Assembly.FullName));
             }
         }
 

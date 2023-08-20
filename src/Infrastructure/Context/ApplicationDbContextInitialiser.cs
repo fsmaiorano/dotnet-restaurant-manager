@@ -40,7 +40,33 @@ public class ApplicationDbContextInitialiser
         {
             if (_context.Database.IsSqlServer())
             {
-                await _context.Database.MigrateAsync();
+                await _context.Database.EnsureCreatedAsync(
+                    cancellationToken: CancellationToken.None);
+
+                try
+                {
+                    await _context.Database.MigrateAsync();
+                }
+                catch (Exception) { }
+            }
+
+            if (_context.Database.IsInMemory())
+                await _context.Database.EnsureCreatedAsync(
+                    cancellationToken: CancellationToken.None);
+
+            if (_context.Database.IsSqlite())
+            {
+                await _context.Database.EnsureDeletedAsync(
+                    cancellationToken: CancellationToken.None);
+
+                await _context.Database.EnsureCreatedAsync(
+                    cancellationToken: CancellationToken.None);
+
+                try
+                {
+                    await _context.Database.MigrateAsync();
+                }
+                catch (Exception) { }
             }
 
             await SeedAsync();
@@ -73,12 +99,11 @@ public class ApplicationDbContextInitialiser
             {
                 Name = "Admin",
                 Email = "admin@application.com",
-                PasswordHash = "123456"
+                PasswordHash = "12345678"
             };
 
-            var createdUserId = await _mediator.Send(createUserCommand);
-            var x = 1;
-        };
+            await _mediator.Send(createUserCommand);
+        }
 
         return;
     }

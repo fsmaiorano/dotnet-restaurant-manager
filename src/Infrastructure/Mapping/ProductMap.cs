@@ -12,7 +12,7 @@ public class ProductMap : IEntityTypeConfiguration<ProductEntity>
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Id);
 
-        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("int").IsRequired();
+        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("Sqlite:Autoincrement", true);
         builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(100)").IsRequired();
         builder.Property(p => p.Restaurant).HasColumnName("Restaurant").HasColumnType("nvarchar(100)").IsRequired();
         builder.Property(p => p.Price).HasColumnName("price").HasColumnType("decimal(18,2)").IsRequired();

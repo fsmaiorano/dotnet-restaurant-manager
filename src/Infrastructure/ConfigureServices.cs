@@ -22,7 +22,8 @@ public static class ConfigureServices
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                // options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
             });
         }
 
