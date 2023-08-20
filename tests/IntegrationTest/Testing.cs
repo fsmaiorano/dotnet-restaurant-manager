@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Net.Http.Headers;
+using Application.Common.Interfaces;
 using Infrastructure.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -79,27 +80,26 @@ public class Testing
         return await context.Set<TEntity>().CountAsync();
     }
 
-    public async Task<HttpClient> CreateHttpClient()
-    {
-        // using var application = new CustomWebApplicationFactory();
-        // using var client = application.CreateClient();
+    // public async Task<HttpClient> CreateHttpClient()
+    // {
+    //     // using var application = new CustomWebApplicationFactory();
+    //     // using var client = application.CreateClient();
 
-        // var user = new UserAuthenticationDto
-        // {
-        //     Id = 1,
-        //     Name = "Test",
-        //     Email = "test@test.com"
-        // };
+    //     var user = new UserAuthenticationDto
+    //     {
+    //         Id = 1,
+    //         Name = "Test",
+    //         Email = "test@test.com"
+    //     };
 
-        // var client = _factory.CreateClient();
-        // client.DefaultRequestHeaders.Accept.Clear();
-        // client.BaseAddress = new Uri("http://localhost:5000");
-        // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _authService.GenerateToken(user));
+    //     var client = _factory.CreateClient();
+    //     client.DefaultRequestHeaders.Accept.Clear();
+    //     client.BaseAddress = new Uri("http://localhost:5000");
+    //     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    //     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _authService.GenerateToken(user));
 
-        // return client;
-        return null;
-    }
+    //     return client;
+    // }
 
     // public async Task<HttpResponseMessage> PostAsync(string url, object data)
     // {
