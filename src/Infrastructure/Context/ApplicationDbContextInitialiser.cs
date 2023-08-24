@@ -38,17 +38,17 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
-            if (_context.Database.IsSqlServer())
-            {
-                await _context.Database.EnsureCreatedAsync(
-                    cancellationToken: CancellationToken.None);
+            // if (_context.Database.IsSqlServer())
+            // {
+            //     await _context.Database.EnsureCreatedAsync(
+            //         cancellationToken: CancellationToken.None);
 
-                try
-                {
-                    await _context.Database.MigrateAsync();
-                }
-                catch (Exception) { }
-            }
+            //     try
+            //     {
+            //         await _context.Database.MigrateAsync();
+            //     }
+            //     catch (Exception) { }
+            // }
 
             if (_context.Database.IsInMemory())
                 await _context.Database.EnsureCreatedAsync(

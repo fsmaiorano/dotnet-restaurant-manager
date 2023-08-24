@@ -1,5 +1,6 @@
 ﻿namespace Infrastructure.Mapping;
 
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -12,7 +13,7 @@ public class UserMap : IEntityTypeConfiguration<UserEntity>
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Id);
 
-        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("Sqlite:Autoincrement", true);
+        builder.Property(p => p.Id).HasColumnName("id").HasColumnType("integer").IsRequired().HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
         builder.Property(p => p.Name).HasColumnName("name").HasColumnType("nvarchar(100)").IsRequired();
         builder.Property(p => p.Email).HasColumnName("email").HasColumnType("nvarchar(200)").IsRequired();
         builder.Property(p => p.PasswordHash).HasColumnName("password_hash").HasColumnType("nvarchar(200)").IsRequired();

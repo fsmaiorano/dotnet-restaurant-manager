@@ -9,6 +9,8 @@ public class RestaurantEntity : BaseAuditableEntity
     public required string Address { get; set; }
     public string? ImageUrl { get; set; }
 
+    public IList<ProductEntity>? Products { get; set; }
+
     [SetsRequiredMembers]
     public RestaurantEntity(string name, string address, string? imageUrl = null)
     {
