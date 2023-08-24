@@ -46,18 +46,18 @@ public class GetRestaurantWithPaginationQueryTests : Testing
         Assert.IsTrue(result.Items.Count > 0);
     }
 
-    // [TestMethod]
-    // public async Task ShouldReturnPaginatedListWithRestaurantController()
-    // {
-    //     using var client = await CreateHttpClient();
-    //     var response = await client.GetAsync("/api/Restaurant?PageSize=9999&PageNumber=1");
-    //     Assert.IsTrue(response.IsSuccessStatusCode);
+    [TestMethod]
+    public async Task ShouldReturnPaginatedListWithRestaurantController()
+    {
+        using var client = await CreateHttpClient();
+        var response = await client.GetAsync("/api/Restaurant?PageSize=9999&PageNumber=1");
+        Assert.IsTrue(response.IsSuccessStatusCode);
 
-    //     var content = await response.Content.ReadAsStringAsync();
-    //     Assert.IsNotNull(content);
+        var content = await response.Content.ReadAsStringAsync();
+        Assert.IsNotNull(content);
 
-    //     var result = JsonConvert.DeserializeObject<PaginatedList<RestaurantEntity>>(content);
-    //     Assert.IsNotNull(result);
-    //     Assert.IsTrue(result.Items.Count > 0);
-    // }
+        var result = JsonConvert.DeserializeObject<PaginatedList<RestaurantEntity>>(content);
+        Assert.IsNotNull(result);
+        Assert.IsTrue(result.Items.Count > 0);
+    }
 }

@@ -18,14 +18,14 @@ public static class ConfigureServices
         services.AddScoped<ApplicationDbContextInitialiser>();
         services.AddScoped<IDataContext>(provider => provider.GetRequiredService<DataContext>());
 
-        if (!AppDomain.CurrentDomain.FriendlyName.Contains("testhost"))
-        {
-            services.AddDbContext<DataContext>(options =>
-            {
-                // options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
-            });
-        }
+        // if (!AppDomain.CurrentDomain.FriendlyName.Contains("testhost"))
+        // {
+        //     services.AddDbContext<DataContext>(options =>
+        //     {
+        //         // options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        //         options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+        //     });
+        // }
 
         return services;
     }
