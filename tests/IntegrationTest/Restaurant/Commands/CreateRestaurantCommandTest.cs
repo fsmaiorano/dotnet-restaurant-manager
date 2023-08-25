@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Application.UseCases.Restaurant.Commands.CreateRestaurant;
 using Bogus;
+using Domain.Entities;
 using Newtonsoft.Json;
 
 namespace IntegrationTest.Restaurant.Commands;
@@ -38,6 +39,16 @@ public class CreateRestaurantTest : Testing
     public static CreateRestaurantCommand GenerateCreateRestaurantCommand()
     {
         return new Faker<CreateRestaurantCommand>()
+                     .RuleFor(x => x.Name, f => f.Commerce.Categories(1)[0])
+                     .RuleFor(x => x.Address, f => f.Address.FullAddress())
+                     .Generate();
+    }
+
+    [DataTestMethod]
+    public static RestaurantEntity GenerateRestaurantEntity()
+    {
+        return new Faker<RestaurantEntity>()
+                     .RuleFor(x => x.Id, f => f.Random.Int(1, 100))
                      .RuleFor(x => x.Name, f => f.Commerce.Categories(1)[0])
                      .RuleFor(x => x.Address, f => f.Address.FullAddress())
                      .Generate();

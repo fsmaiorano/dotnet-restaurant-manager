@@ -20,6 +20,25 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
     public Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var entity = new ProductEntity
+            {
+                Name = request.Name,
+                Price = request.Price,
+                ImageUrl = request.ImageUrl,
+                RestaurantId = request.RestaurantId,
+                Promotions = request.Promotions
+            };
+
+            _context.Products.Add(entity);
+
+            return _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
     }
 }
