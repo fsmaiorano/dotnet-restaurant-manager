@@ -48,8 +48,8 @@ public class CreateRestaurantTest : Testing
     public static RestaurantEntity GenerateRestaurantEntity()
     {
         return new Faker<RestaurantEntity>()
+                     .CustomInstantiator(f => new RestaurantEntity(name: f.Commerce.Categories(1)[0], address: f.Address.FullAddress()))
                      .RuleFor(x => x.Id, f => f.Random.Int(1, 100))
-                     .RuleFor(x => x.Name, f => f.Commerce.Categories(1)[0])
                      .RuleFor(x => x.Address, f => f.Address.FullAddress())
                      .Generate();
     }

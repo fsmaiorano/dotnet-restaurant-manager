@@ -18,6 +18,11 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 {
     private readonly IDataContext _context;
 
+    public CreateProductCommandHandler(IDataContext context)
+    {
+        _context = context;
+    }
+
     public Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         try

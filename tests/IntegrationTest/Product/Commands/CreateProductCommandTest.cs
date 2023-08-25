@@ -11,11 +11,10 @@ public class CreateProductCommandTest : Testing
     private int _createdRestaurantId;
 
     [TestInitialize]
-    public async void TestInitialize()
+    public void TestInitialize()
     {
         var restaurantEntity = CreateRestaurantTest.GenerateRestaurantEntity();
-        await AddAsync(restaurantEntity);
-
+        AddAsync(restaurantEntity).GetAwaiter().GetResult();
         _createdRestaurantId = restaurantEntity.Id;
     }
 
