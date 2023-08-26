@@ -40,4 +40,14 @@ public class CreateProductCommandTest : Testing
                      .RuleFor(x => x.Promotions, f => new List<PromotionEntity>())
                      .Generate();
     }
+
+    [DataTestMethod]
+    public static ProductEntity GenerateProductEntity()
+    {
+        return new Faker<ProductEntity>()
+                     .CustomInstantiator(f => new ProductEntity(name: f.Commerce.ProductName(), price: f.Random.Decimal(0, 100)))
+                     .RuleFor(x => x.ImageUrl, f => f.Image.PicsumUrl())
+                     .RuleFor(x => x.Promotions, f => new List<PromotionEntity>())
+                     .Generate();
+    }
 }

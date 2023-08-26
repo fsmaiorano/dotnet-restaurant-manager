@@ -1,6 +1,5 @@
 ﻿using Application.Common.Models;
 using Application.UseCases.Restaurant.Queries.GetRestaurant;
-using Bogus;
 using Domain.Entities;
 using IntegrationTest.Restaurant.Commands;
 using Newtonsoft.Json;
@@ -13,13 +12,13 @@ public class GetRestaurantWithPaginationQueryTests : Testing
     [TestInitialize]
     public async Task TestInitialize()
     {
-        var createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
+        var createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
 
         var createdRestaurantId = await SendAsync(createRestaurantCommand);
         Assert.IsNotNull(createdRestaurantId);
         Assert.IsTrue(createdRestaurantId > 0);
 
-        createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
+        createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
 
         createdRestaurantId = await SendAsync(createRestaurantCommand);
         Assert.IsNotNull(createdRestaurantId);

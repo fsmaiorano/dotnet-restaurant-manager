@@ -17,5 +17,6 @@ public class RestaurantEntity : BaseAuditableEntity
         Name = name;
         Address = address;
         ImageUrl = imageUrl;
+        Products = new List<ProductEntity>();
     }
 }

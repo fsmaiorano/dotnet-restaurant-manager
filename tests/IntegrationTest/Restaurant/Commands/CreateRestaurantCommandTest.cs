@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace IntegrationTest.Restaurant.Commands;
 
 [TestClass]
-public class CreateRestaurantTest : Testing
+public class CreateRestaurantCommandTest : Testing
 {
     [TestInitialize]
     public void TestInitialize()

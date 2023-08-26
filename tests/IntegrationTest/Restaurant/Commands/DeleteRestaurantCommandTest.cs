@@ -6,38 +6,32 @@ namespace IntegrationTest.Restaurant.Commands;
 [TestClass]
 public class DeleteRestaurantCommandTest : Testing
 {
+    private int _createdRestaurantId;
+
     [TestInitialize]
     public void TestInitialize()
     {
-
+        var restaurantEntity = CreateRestaurantCommandTest.GenerateRestaurantEntity();
+        AddAsync(restaurantEntity).GetAwaiter().GetResult();
+        _createdRestaurantId = restaurantEntity.Id;
     }
 
     [TestMethod]
     public async Task ShouldDeleteRestaurantUseCase()
     {
-        var createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
-        var createdRestaurantId = await SendAsync(createRestaurantCommand);
-        Assert.IsNotNull(createdRestaurantId);
-        Assert.IsTrue(createdRestaurantId > 0);
+        await SendAsync(new DeleteRestaurantCommand(_createdRestaurantId));
 
-        await SendAsync(new DeleteRestaurantCommand(createdRestaurantId));
-
-        var Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
-        Assert.IsNull(Restaurant);
+        var restaurant = await FindAsync<RestaurantEntity>(_createdRestaurantId);
+        Assert.IsNull(restaurant);
     }
 
-    // [TestMethod]
-    // public async Task ShouldDeleteRestaurantController()
-    // {
-    //     var createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
-    //     var createdRestaurantId = await SendAsync(createRestaurantCommand);
-    //     Assert.IsNotNull(createdRestaurantId);
-    //     Assert.IsTrue(createdRestaurantId > 0);
+    [TestMethod]
+    public async Task ShouldDeleteRestaurantController()
+    {
+        using var client = await CreateHttpClient();
+        var response = await client.DeleteAsync($"/api/Restaurant?id={_createdRestaurantId}");
 
-    //     using var client = await CreateHttpClient();
-    //     var response = await client.DeleteAsync($"/api/Restaurant?id={createdRestaurantId}");
-
-    //     var Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
-    //     Assert.IsNull(Restaurant);
-    // }
+        var restaurant = await FindAsync<RestaurantEntity>(_createdRestaurantId);
+        Assert.IsNull(restaurant);
+    }
 }

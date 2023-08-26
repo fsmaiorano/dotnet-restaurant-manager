@@ -27,12 +27,9 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     {
         try
         {
-            var entity = new ProductEntity
+            var entity = new ProductEntity(name: request.Name, price: request.Price, restaurantId: request.RestaurantId)
             {
-                Name = request.Name,
-                Price = request.Price,
                 ImageUrl = request.ImageUrl,
-                RestaurantId = request.RestaurantId,
                 Promotions = request.Promotions
             };
 
