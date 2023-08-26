@@ -13,7 +13,7 @@ public class CreateProductCommandTest : Testing
     [TestInitialize]
     public void TestInitialize()
     {
-        var restaurantEntity = CreateRestaurantTest.GenerateRestaurantEntity();
+        var restaurantEntity = CreateRestaurantCommandTest.GenerateRestaurantEntity();
         AddAsync(restaurantEntity).GetAwaiter().GetResult();
         _createdRestaurantId = restaurantEntity.Id;
     }

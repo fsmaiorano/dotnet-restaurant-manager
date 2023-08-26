@@ -11,7 +11,7 @@ public class UpdateRestaurantCommandTest : Testing
     [TestMethod]
     public async Task ShouldUpdateRestaurantUseCase()
     {
-        var createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
+        var createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
         var createdRestaurantId = await SendAsync(createRestaurantCommand);
         Assert.IsNotNull(createdRestaurantId);
         Assert.IsTrue(createdRestaurantId > 0);
