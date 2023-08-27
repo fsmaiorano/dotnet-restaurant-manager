@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Events.Product;
 using MediatR;
 
 namespace Application.UseCases.Product.Commands.CreateProduct;
@@ -34,6 +35,8 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             };
 
             _context.Products.Add(entity);
+
+            entity.AddDomainEvent(new ProductCreatedEvent(entity));
 
             return _context.SaveChangesAsync(cancellationToken);
         }
