@@ -4,6 +4,7 @@ using IntegrationTest.Restaurant.Commands;
 
 namespace IntegrationTest.Product.Commands;
 
+[TestClass]
 public class DeleteProductCommandTest : Testing
 {
     private int _createdProductId;

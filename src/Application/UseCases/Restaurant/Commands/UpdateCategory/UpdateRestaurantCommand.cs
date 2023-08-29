@@ -7,10 +7,10 @@ namespace Application.UseCases.Restaurant.Commands.UpdateRestaurant;
 
 public record UpdateRestaurantCommand : IRequest
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Address { get; set; }
-    public string? ImageUrl { get; set; }
+    public required int Id { get; set; }
+    public required string Name { get; set; }
+    public required string Address { get; set; }
+    public required string ImageUrl { get; set; }
 }
 
 public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand>
@@ -24,15 +24,8 @@ public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCo
 
     public async Task Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Restaurants.FindAsync(new object[] { request.Id, }, cancellationToken);
-
-        if (entity == null)
-        {
-            // throw new NotFoundException(nameof(UserEntity), request.Id);
-        }
-
+        var entity = await _context.Restaurants.FindAsync(new object[] { request.Id, }, cancellationToken) ?? throw new NotFoundException(nameof(RestaurantEntity), request.Id);
         entity.Name = request.Name ?? entity.Name;
-
 
         await _context.SaveChangesAsync(cancellationToken);
     }

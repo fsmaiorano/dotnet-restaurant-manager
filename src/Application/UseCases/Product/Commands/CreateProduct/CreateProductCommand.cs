@@ -12,7 +12,6 @@ public record CreateProductCommand : IRequest<int>
     public string? ImageUrl { get; set; }
     public required int RestaurantId { get; set; }
     public IList<PromotionEntity>? Promotions { get; set; }
-
 }
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>

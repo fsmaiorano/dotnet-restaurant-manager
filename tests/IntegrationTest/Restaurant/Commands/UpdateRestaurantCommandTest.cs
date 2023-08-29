@@ -1,39 +1,39 @@
-﻿using System.Text;
-using Application.UseCases.Restaurant.Commands.UpdateRestaurant;
+﻿using Application.UseCases.Restaurant.Commands.UpdateRestaurant;
 using Domain.Entities;
-using Newtonsoft.Json;
 
 namespace IntegrationTest.Restaurant.Commands;
 
 [TestClass]
 public class UpdateRestaurantCommandTest : Testing
 {
+    private int _createdRestaurantId;
+
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        var restaurantEntity = CreateRestaurantCommandTest.GenerateRestaurantEntity();
+        AddAsync(restaurantEntity).GetAwaiter().GetResult();
+        _createdRestaurantId = restaurantEntity.Id;
+    }
+
     [TestMethod]
     public async Task ShouldUpdateRestaurantUseCase()
     {
-        var createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
-        var createdRestaurantId = await SendAsync(createRestaurantCommand);
-        Assert.IsNotNull(createdRestaurantId);
-        Assert.IsTrue(createdRestaurantId > 0);
+        var restaurant = await FindAsync<RestaurantEntity>(_createdRestaurantId);
 
-        var Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
-
-        Assert.IsNotNull(Restaurant);
-        Assert.IsTrue(Restaurant.Id > 0);
-        Assert.IsTrue(Restaurant.Name == createRestaurantCommand.Name);
-
-        Restaurant.Name = $"updated_{Restaurant.Name}";
+        restaurant!.Name = $"updated_{restaurant.Name}";
 
         await SendAsync(new UpdateRestaurantCommand
         {
-            Id = Restaurant.Id,
-            Name = Restaurant.Name,
+            Id = restaurant.Id,
+            Name = restaurant.Name,
+            Address = restaurant.Address,
+            ImageUrl = restaurant.ImageUrl ?? string.Empty,
         });
 
-        Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
-
-        Assert.IsNotNull(Restaurant);
-        Assert.IsTrue(Restaurant.Name == $"updated_{createRestaurantCommand.Name}");
+        var updatedRestaurant = await FindAsync<RestaurantEntity>(_createdRestaurantId);
+        Assert.IsNotNull(updatedRestaurant);
+        Assert.IsTrue(restaurant.Name == updatedRestaurant.Name);
     }
 
     // [TestMethod]
