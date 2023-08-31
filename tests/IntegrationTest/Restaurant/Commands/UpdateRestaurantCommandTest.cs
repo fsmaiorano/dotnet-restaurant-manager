@@ -1,5 +1,7 @@
-﻿using Application.UseCases.Restaurant.Commands.UpdateRestaurant;
+﻿using System.Text;
+using Application.UseCases.Restaurant.Commands.UpdateRestaurant;
 using Domain.Entities;
+using Newtonsoft.Json;
 
 namespace IntegrationTest.Restaurant.Commands;
 
@@ -36,35 +38,37 @@ public class UpdateRestaurantCommandTest : Testing
         Assert.IsTrue(restaurant.Name == updatedRestaurant.Name);
     }
 
-    // [TestMethod]
-    // public async Task ShouldUpdateRestaurantController()
-    // {
-    //     var createRestaurantCommand = CreateRestaurantTest.GenerateCreateRestaurantCommand();
-    //     var createdRestaurantId = await SendAsync(createRestaurantCommand);
-    //     Assert.IsNotNull(createdRestaurantId);
-    //     Assert.IsTrue(createdRestaurantId > 0);
+    [TestMethod]
+    public async Task ShouldUpdateRestaurantController()
+    {
+        var createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
+        var createdRestaurantId = await SendAsync(createRestaurantCommand);
+        Assert.IsNotNull(createdRestaurantId);
+        Assert.IsTrue(createdRestaurantId > 0);
 
-    //     var Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
+        var Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
 
-    //     Assert.IsNotNull(Restaurant);
-    //     Assert.IsTrue(Restaurant.Id > 0);
-    //     Assert.IsTrue(Restaurant.Name == createRestaurantCommand.Name);
+        Assert.IsNotNull(Restaurant);
+        Assert.IsTrue(Restaurant.Id > 0);
+        Assert.IsTrue(Restaurant.Name == createRestaurantCommand.Name);
 
-    //     Restaurant.Name = $"updated_{Restaurant.Name}";
+        Restaurant.Name = $"updated_{Restaurant.Name}";
 
-    //     var updateRestaurantCommand = new UpdateRestaurantCommand
-    //     {
-    //         Id = Restaurant.Id,
-    //         Name = Restaurant.Name,
-    //     };
+        var updateRestaurantCommand = new UpdateRestaurantCommand
+        {
+            Id = Restaurant.Id,
+            Name = Restaurant.Name,
+            Address = Restaurant.Address,
+            ImageUrl = Restaurant.ImageUrl ?? string.Empty,
+        };
 
-    //     using var client = await CreateHttpClient();
-    //     var response = await client.PutAsync($"/api/Restaurant?id={Restaurant.Id}", new StringContent(JsonConvert.SerializeObject(updateRestaurantCommand), Encoding.UTF8, "application/json"));
-    //     Assert.IsTrue(response.IsSuccessStatusCode);
+        using var client = await CreateHttpClient();
+        var response = await client.PutAsync($"/api/Restaurant?id={Restaurant.Id}", new StringContent(JsonConvert.SerializeObject(updateRestaurantCommand), Encoding.UTF8, "application/json"));
+        Assert.IsTrue(response.IsSuccessStatusCode);
 
-    //     Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
+        Restaurant = await FindAsync<RestaurantEntity>(createdRestaurantId);
 
-    //     Assert.IsNotNull(Restaurant);
-    //     Assert.IsTrue(Restaurant.Name == $"updated_{createRestaurantCommand.Name}");
-    // }
+        Assert.IsNotNull(Restaurant);
+        Assert.IsTrue(Restaurant.Name == $"updated_{createRestaurantCommand.Name}");
+    }
 }
