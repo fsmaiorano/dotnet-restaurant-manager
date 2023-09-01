@@ -9,20 +9,14 @@ namespace IntegrationTest.Restaurant.Queries;
 [TestClass]
 public class GetRestaurantWithPaginationQueryTests : Testing
 {
+    private int _createdRestaurantId;
+
     [TestInitialize]
-    public async Task TestInitialize()
+    public void TestInitialize()
     {
-        var createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
-
-        var createdRestaurantId = await SendAsync(createRestaurantCommand);
-        Assert.IsNotNull(createdRestaurantId);
-        Assert.IsTrue(createdRestaurantId > 0);
-
-        createRestaurantCommand = CreateRestaurantCommandTest.GenerateCreateRestaurantCommand();
-
-        createdRestaurantId = await SendAsync(createRestaurantCommand);
-        Assert.IsNotNull(createdRestaurantId);
-        Assert.IsTrue(createdRestaurantId > 0);
+        var restaurantEntity = CreateRestaurantCommandTest.GenerateRestaurantEntity();
+        AddAsync(restaurantEntity).GetAwaiter().GetResult();
+        _createdRestaurantId = restaurantEntity.Id;
     }
 
     [TestMethod]

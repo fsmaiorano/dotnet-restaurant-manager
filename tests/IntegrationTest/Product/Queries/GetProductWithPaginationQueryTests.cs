@@ -2,26 +2,25 @@
 using Application.UseCases.Product.Queries.GetProduct;
 using Application.UseCases.Product.Queries.GetProductWithPaginationQuery;
 using IntegrationTest.Product.Commands;
+using IntegrationTest.Restaurant.Commands;
 
 namespace IntegrationTest.Product.Queries;
 
 [TestClass]
 public class GetProductWithPaginationQueryTests : Testing
 {
+    private int _createdRestaurantId;
+
     [TestInitialize]
-    public async Task TestInitialize()
+    public void TestInitialize()
     {
-        var createProductCommand = CreateProductCommandTest.GenerateCreateProductCommand();
+        var restaurantEntity = CreateRestaurantCommandTest.GenerateRestaurantEntity();
+        AddAsync(restaurantEntity).GetAwaiter().GetResult();
+        _createdRestaurantId = restaurantEntity.Id;
 
-        var createdProductId = await SendAsync(createProductCommand);
-        Assert.IsNotNull(createdProductId);
-        Assert.IsTrue(createdProductId > 0);
-
-        createProductCommand = CreateProductCommandTest.GenerateCreateProductCommand();
-
-        createdProductId = await SendAsync(createProductCommand);
-        Assert.IsNotNull(createdProductId);
-        Assert.IsTrue(createdProductId > 0);
+        var productEntity = CreateProductCommandTest.GenerateProductEntity();
+        productEntity.RestaurantId = _createdRestaurantId;
+        AddAsync(productEntity).GetAwaiter().GetResult();
     }
 
     [TestMethod]
