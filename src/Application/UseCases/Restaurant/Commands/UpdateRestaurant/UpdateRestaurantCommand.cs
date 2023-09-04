@@ -24,8 +24,11 @@ public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCo
 
     public async Task Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Restaurants.FindAsync(new object[] { request.Id, }, cancellationToken) ?? throw new NotFoundException(nameof(RestaurantEntity), request.Id);
+        var entity = await _context.Restaurants.FindAsync(new object[] { request.Id, }, cancellationToken)
+                                ?? throw new NotFoundException(nameof(RestaurantEntity), request.Id);
         entity.Name = request.Name ?? entity.Name;
+        entity.Address = request.Address ?? entity.Address;
+        entity.ImageUrl = request.ImageUrl ?? entity.ImageUrl;
 
         await _context.SaveChangesAsync(cancellationToken);
     }

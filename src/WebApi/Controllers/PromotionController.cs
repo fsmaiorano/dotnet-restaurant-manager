@@ -1,4 +1,6 @@
 ﻿using Application.UseCases.Promotion.Commands.CreatePromotion;
+using Application.UseCases.Promotion.Commands.DeletePromotionCommand;
+using Application.UseCases.Promotion.Commands.UpdatePromotionCommand;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,29 +24,29 @@ public class PromotionController : BaseController
     //     return Ok(await Mediator.Send(query));
     // }
 
-    // [HttpPut]
-    // [Authorize]
-    // [ProducesResponseType(StatusCodes.Status204NoContent)]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [ProducesDefaultResponseType]
-    // public async Task<ActionResult> Update(int id, UpdatePromotionCommand command)
-    // {
-    //     if (id != command.Id)
-    //         return BadRequest();
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Update(int id, UpdatePromotionCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
 
-    //     await Mediator.Send(command);
+        await Mediator.Send(command);
 
-    //     return NoContent();
-    // }
+        return NoContent();
+    }
 
-    // [HttpDelete]
-    // [Authorize]
-    // [ProducesResponseType(StatusCodes.Status204NoContent)]
-    // [ProducesDefaultResponseType]
-    // public async Task<ActionResult> Delete(int id)
-    // {
-    //     await Mediator.Send(new DeletePromotionCommand(id));
+    [HttpDelete]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await Mediator.Send(new DeletePromotionCommand(id));
 
-    //     return NoContent();
-    // }
+        return NoContent();
+    }
 }

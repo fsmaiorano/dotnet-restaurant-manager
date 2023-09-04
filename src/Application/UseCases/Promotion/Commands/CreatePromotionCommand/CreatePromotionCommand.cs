@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using Domain.Events.Promotion;
 using MediatR;
 
 namespace Application.UseCases.Promotion.Commands.CreatePromotion;
@@ -34,6 +35,8 @@ public class CreatePromotionCommandHandler : IRequestHandler<CreatePromotionComm
                                     );
 
             _context.Promotions.Add(entity);
+
+            entity.AddDomainEvent(new PromotionCreatedEvent(entity));
 
             return _context.SaveChangesAsync(cancellationToken);
         }
