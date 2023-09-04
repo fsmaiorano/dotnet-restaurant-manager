@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using Application.Common.Interfaces;
 using Application.UseCases.User.Queries.GetUser;
 using Infrastructure.Context;
@@ -105,13 +106,13 @@ public class Testing
     public async Task<HttpResponseMessage> PostAsync(string url, object data)
     {
         using var client = await CreateHttpClient();
-        return await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(data)));
+        return await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
     }
 
     public async Task<HttpResponseMessage> PutAsync(string url, object data)
     {
         using var client = await CreateHttpClient();
-        return await client.PutAsync(url, new StringContent(JsonConvert.SerializeObject(data)));
+        return await client.PutAsync(url, new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
     }
 
     public async Task<HttpResponseMessage> DeleteAsync(string url)

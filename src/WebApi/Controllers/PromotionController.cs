@@ -1,6 +1,9 @@
-﻿using Application.UseCases.Promotion.Commands.CreatePromotion;
+﻿using Application.Common.Models;
+using Application.UseCases.Promotion.Commands.CreatePromotion;
 using Application.UseCases.Promotion.Commands.DeletePromotionCommand;
 using Application.UseCases.Promotion.Commands.UpdatePromotionCommand;
+using Application.UseCases.Promotion.Queries.GetPromotionWithPaginationQuery;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +19,13 @@ public class PromotionController : BaseController
         return Ok(await Mediator.Send(command));
     }
 
-    // [HttpGet]
-    // [Authorize]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // public async Task<ActionResult<PaginatedList<PromotionEntity>>> GetWithPagination([FromQuery] GetPromotionWithPaginationQuery query)
-    // {
-    //     return Ok(await Mediator.Send(query));
-    // }
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<PaginatedList<PromotionEntity>>> GetWithPagination([FromQuery] GetPromotionWithPaginationQuery query)
+    {
+        return Ok(await Mediator.Send(query));
+    }
 
     [HttpPut]
     [Authorize]

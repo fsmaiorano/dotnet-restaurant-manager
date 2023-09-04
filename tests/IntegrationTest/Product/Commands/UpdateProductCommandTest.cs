@@ -1,6 +1,8 @@
-﻿using Application.UseCases.Product.Commands.UpdateProduct;
+﻿using System.Text;
+using Application.UseCases.Product.Commands.UpdateProduct;
 using Domain.Entities;
 using IntegrationTest.Restaurant.Commands;
+using Newtonsoft.Json;
 
 namespace IntegrationTest.Product.Commands;
 
@@ -30,9 +32,9 @@ public class UpdateProductCommandTest : Testing
 
         product!.Name = $"updated_{product.Name}";
 
-        var updateProductCommand = new UpdateProductCommand(id: product.Id, 
-                                                            name: product.Name, 
-                                                            price: product.Price, 
+        var updateProductCommand = new UpdateProductCommand(id: product.Id,
+                                                            name: product.Name,
+                                                            price: product.Price,
                                                             restaurantId: product.RestaurantId)
         {
             ImageUrl = product.ImageUrl,
@@ -45,5 +47,29 @@ public class UpdateProductCommandTest : Testing
 
         Assert.IsNotNull(updatedProduct);
         Assert.IsTrue(updatedProduct!.Name == product.Name);
+    }
+
+    [TestMethod]
+    public async Task ShouldUpdateProductController()
+    {
+        var product = await FindAsync<ProductEntity>(_createdProductId);
+
+        product!.Name = $"updated_{product.Name}";
+
+        var updateProductCommand = new UpdateProductCommand(id: product.Id,
+                                                            name: product.Name,
+                                                            price: product.Price,
+                                                            restaurantId: product.RestaurantId)
+        {
+            ImageUrl = product.ImageUrl,
+            Promotions = product.Promotions,
+        };
+        var response = await PutAsync($"/api/Product?id={updateProductCommand.Id}", updateProductCommand);
+        Assert.IsTrue(response.IsSuccessStatusCode);
+
+        var updatedProduct = await FindAsync<ProductEntity>(_createdProductId);
+
+        Assert.IsNotNull(updatedProduct);
+        Assert.IsTrue(updatedProduct!.Name == $"{product.Name}");
     }
 }
