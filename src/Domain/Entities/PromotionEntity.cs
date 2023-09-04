@@ -11,18 +11,17 @@ public class PromotionEntity : BaseAuditableEntity
     public required decimal PromotionalPrice { get; set; }
     public required DateTime StartDate { get; set; }
     public required DateTime EndDate { get; set; }
-    public required bool IsActive { get; set; }
+    public bool IsActive { get; set; }
     // public required List<string> DaysAndTimes { get; set; }
 
     [SetsRequiredMembers]
-    public PromotionEntity(int productId, string description, decimal promotionalPrice, DateTime startDate, DateTime endDate, bool isActive)
+    public PromotionEntity(int productId, string description, decimal promotionalPrice, DateTime startDate, DateTime endDate)
     {
         ProductId = productId;
         Description = description;
         PromotionalPrice = promotionalPrice;
         StartDate = startDate;
         EndDate = endDate;
-        IsActive = isActive;
         // DaysAndTimes = daysAndTimes;
     }
 }

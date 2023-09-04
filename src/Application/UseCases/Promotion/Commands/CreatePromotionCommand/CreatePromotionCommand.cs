@@ -11,7 +11,6 @@ public record CreatePromotionCommand : IRequest<int>
     public required decimal PromotionalPrice { get; set; }
     public required DateTime StartDate { get; set; }
     public required DateTime EndDate { get; set; }
-    public required bool IsActive { get; set; }
 }
 
 public class CreatePromotionCommandHandler : IRequestHandler<CreatePromotionCommand, int>
@@ -27,7 +26,12 @@ public class CreatePromotionCommandHandler : IRequestHandler<CreatePromotionComm
     {
         try
         {
-            var entity = new PromotionEntity(productId: request.ProductId, description: request.Description, promotionalPrice: request.PromotionalPrice, startDate: request.StartDate, endDate: request.EndDate, isActive: request.IsActive);
+            var entity = new PromotionEntity(productId: request.ProductId,
+                                    description: request.Description,
+                                    promotionalPrice: request.PromotionalPrice,
+                                    startDate: request.StartDate,
+                                    endDate: request.EndDate
+                                    );
 
             _context.Promotions.Add(entity);
 

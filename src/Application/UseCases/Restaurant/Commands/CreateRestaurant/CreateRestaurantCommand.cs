@@ -25,8 +25,8 @@ public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCo
     {
         try
         {
-            var entity = new RestaurantEntity(name: request.Name!, address: request.Address!, imageUrl: request.ImageUrl ?? null);
-
+            var entity = new RestaurantEntity(name: request.Name!, address: request.Address!, imageUrl: request.ImageUrl ?? null) 
+                             ?? throw new Exception("Restaurant not found");
             entity.AddDomainEvent(new RestaurantCreatedEvent(entity));
 
             _context.Restaurants.Add(entity);

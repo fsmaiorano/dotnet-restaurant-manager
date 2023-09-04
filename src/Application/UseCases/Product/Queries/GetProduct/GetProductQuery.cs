@@ -20,6 +20,3 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, List<Prod
         return _context.Products.ToListAsync(cancellationToken);
     }
 }
-
-
-

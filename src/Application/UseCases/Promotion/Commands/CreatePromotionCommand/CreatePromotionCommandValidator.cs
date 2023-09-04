@@ -19,17 +19,6 @@ public class CreatePromotionCommandValidator : AbstractValidator<CreatePromotion
             .NotEmpty()
             .GreaterThan(0);
 
-        RuleFor(x => x.StartDate)
-            .NotEmpty()
-            .GreaterThan(DateTime.Now);
-
-        RuleFor(x => x.EndDate)
-            .NotEmpty()
-            .GreaterThan(DateTime.Now);
-
-        RuleFor(x => x.IsActive)
-            .NotEmpty();
-
         // RuleFor(x => x.DaysAndTimes)
         //     .NotEmpty()
         //     .MaximumLength(100);

@@ -1,6 +1,8 @@
 ﻿using Application.Common.Models;
 using Application.UseCases.Product.Commands.CreateProduct;
 using Application.UseCases.Product.Commands.DeleteProduct;
+using Application.UseCases.Product.Commands.UpdateProduct;
+using Application.UseCases.Product.Queries.GetProductWithPaginationQuery;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,7 @@ namespace WebApi.Controllers;
 
 public class ProductController : BaseController
 {
-     [HttpPost]
+    [HttpPost]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<int>> Create(CreateProductCommand command)
@@ -17,28 +19,28 @@ public class ProductController : BaseController
         return Ok(await Mediator.Send(command));
     }
 
-    // [HttpGet]
-    // [Authorize]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // public async Task<ActionResult<PaginatedList<ProductEntity>>> GetWithPagination([FromQuery] GetProductWithPaginationQuery query)
-    // {
-    //     return Ok(await Mediator.Send(query));
-    // }
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<PaginatedList<ProductEntity>>> GetWithPagination([FromQuery] GetProductWithPaginationQuery query)
+    {
+        return Ok(await Mediator.Send(query));
+    }
 
-    // [HttpPut]
-    // [Authorize]
-    // [ProducesResponseType(StatusCodes.Status204NoContent)]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [ProducesDefaultResponseType]
-    // public async Task<ActionResult> Update(int id, UpdateProductCommand command)
-    // {
-    //     if (id != command.Id)
-    //         return BadRequest();
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Update(int id, UpdateProductCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
 
-    //     await Mediator.Send(command);
+        await Mediator.Send(command);
 
-    //     return NoContent();
-    // }
+        return NoContent();
+    }
 
     [HttpDelete]
     [Authorize]
