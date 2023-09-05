@@ -16,29 +16,28 @@ The implementation between the Api and the rest of the application is built with
 
 ## Goals
 
-- [ ]Listar todos os restaurantes
-- [ ]Cadastrar novos restaurantes
-- [ ]Listar os dados de um restaurante
-- [ ]Alterar os dados um restaurante
-- [ ]Excluir um restaurante
-- [ ]Listar todos os produtos de um restautante
-- [ ]Criar um produto de um restaurante
-- [ ]Alterar um produto de um restaurante
-- [ ]Excluir um produto de um restaurante
+- [x]List all restaurants
+- [x]Register new restaurants
+- [x]List restaurant data
+- [x]Change restaurant data
+- [x]Delete a restaurant
+- [ ]List all products from a restaurant
+- [x]Create a restaurant product
+- [x]Change a restaurant product
+- [x]Delete a product from a restaurant
 
-- O cadastro do restaurante precisa ter os seguintes campos:
-    - [ ]Foto do restaurante
-    - [ ]Nome do restaurante
-    - [ ]Endereço do restaurante
-    - [ ]Horários de funcionamento do restaurante (ex.: De Segunda à Sexta das 09h as 18h e de Sabado à Domingo das 11h as 20h).
+- The restaurant registration must have the following fields:
+    - [ ]Photo of the restaurant
+    - [x]Restaurant name
+    - [x]Restaurant address
 
-- O cadastro de produtos do restaurante precisa ter os seguintes campos:
-    - [ ]Foto do produto
-    - [ ]Nome do produto
-    - [ ]Preço do produto
-    - [ ]Categoria do produto (ex.: Doce, Salgados, Sucos...)
+- The restaurant's product registration must have the following fields:
+    - [ ]Product photo
+    - [x]Product's name
+    - [x]Price of the product
+    - [ ]Product category (e.g.: Sweet, Savory, Juices...)
 
-    - Quando o Produto for colocado em promoção, precisa ter os seguintes campos:
-        - [ ]Descrição para a promoção do produto (ex.: Chopp pela metade do preço)
-        - [ ]Preço promocional
-        - [ ]Dias da semana e o horário em que o produto deve estar em promoção
+    - When the Product is placed on promotion, it must have the following fields:
+        - [x]Description for product promotion (e.g.: Beer at half price)
+        - [x]Promotional price
+        - [x]Days of the week and time when the product should be on sale
